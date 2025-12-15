@@ -29,9 +29,11 @@ else
     chmod +x "${SCRIPT_DIR}/${SCRIPT_NAME}"
 fi
 
-# Copy systemd service file
-log "Copying systemd service file..."
-sudo cp "${SCRIPT_DIR}/${SERVICE_NAME}" "${SERVICE_PATH}/${SERVICE_NAME}"
+# Update service file with correct path and copy it
+log "Configuring systemd service file..."
+sed "s|/path/to/test-project.py|${SCRIPT_DIR}/${SCRIPT_NAME}|g" \
+    "${SCRIPT_DIR}/${SERVICE_NAME}" | \
+    sudo tee "${SERVICE_PATH}/${SERVICE_NAME}" > /dev/null
 
 # Reload systemd daemon
 log "Reloading systemd daemon..."
