@@ -8,12 +8,15 @@ import requests
 import time
 from datetime import datetime
 
+REQUEST_TIMEOUT = 5  # seconds
+POLL_INTERVAL = 10  # seconds
+URL = "https://api.weather.gov/alerts/active/count"
+
 def get_active_alerts():
     """Fetch and display the total count of active weather alerts."""
-    url = "https://api.weather.gov/alerts/active/count"
     
     try:
-        response = requests.get(url, timeout=10)
+        response = requests.get(URL, timeout=REQUEST_TIMEOUT)
         response.raise_for_status()
         
         data = response.json()
@@ -38,7 +41,7 @@ def main():
     try:
         while True:
             get_active_alerts()
-            time.sleep(10)
+            time.sleep(POLL_INTERVAL)
     except KeyboardInterrupt:
         print("\n\nMonitor stopped by user")
 
