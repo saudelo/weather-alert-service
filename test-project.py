@@ -22,9 +22,16 @@ def get_active_alerts():
         data = response.json()
         #Extract the 'total' value (or use 'N/A' if missing)
         total = data.get('total', 'N/A')
-        
+        areas = data.get('areas', 'N/A')
+        count = 0
+        keyCount = 0
+        for state in areas:
+            keyCount += 1
+            value = areas[state]
+            count += value if isinstance(value, int) else 0
+
         timestamp = datetime.now().strftime('%m/%d/%Y %H:%M:%S')
-        print(f"{timestamp} – Total {total} active alerts")
+        print(f"{timestamp} – Total {total} active alerts in total {count} areas in total {keyCount} states")
         
     except requests.exceptions.RequestException as e:
         timestamp = datetime.now().strftime('%m/%d/%Y %H:%M:%S')

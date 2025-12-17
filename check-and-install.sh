@@ -29,6 +29,15 @@ else
     chmod +x "${SCRIPT_DIR}/${SCRIPT_NAME}"
 fi
 
+# Ensure service file is not executable
+if [ -x "${SCRIPT_DIR}/${SERVICE_NAME}" ]; then
+    log "Making ${SERVICE_NAME} not executable..."
+    chmod -x "${SCRIPT_DIR}/${SERVICE_NAME}"
+else
+    log "${SERVICE_NAME} is already not executable."
+  
+fi
+
 # Update service file with correct path and copy it
 log "Configuring systemd service file..."
 sed "s|/path/to/test-project.py|${SCRIPT_DIR}/${SCRIPT_NAME}|g" \
