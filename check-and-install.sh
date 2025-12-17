@@ -48,5 +48,5 @@ log "Starting service..."
 sudo systemctl start "${SERVICE_NAME}"
 
 log "Installation complete. Service is running."
-log "View logs with: journalctl -u ${SERVICE_NAME} -f"
-log "View installer logs with: journalctl -t test-project-installer"
+log "View logs with: sudo journalctl -u ${SERVICE_NAME} -f"
+log "View installer logs with: sudo journalctl -t test-project-installer"
